@@ -8,13 +8,19 @@ namespace TrelloAdd
 {
     class Program
     {
-       
 
-        
+       
+      
+     
+         
 
         static void Main(string[] args)
         {
-            using(StreamWriter sw = new StreamWriter(@"C:\Users\Sumptons\Desktop\Temp.txt", true))
+
+            string[] JobDetails;
+            JobDetails = new string[6];
+
+            using (StreamWriter sw = new StreamWriter(@"C:\Users\Sumptons\Desktop\Temp.txt", true))
             
 
                 try
@@ -38,23 +44,25 @@ namespace TrelloAdd
                         using (var cmd = new NpgsqlCommand("SELECT job.ccmasterid, job.amounttoinvoice, Customer.arcustname, job.ccdescription, job.ccscheduledshipdate, jobpart.ccact2date FROM job INNER Join customer ON job.armasterid = customer.armasterid INNER Join jobpart ON job.ccmasterid = jobpart.ccmasterid WHERE  job.ccmasterid =" + jn, conn))
                         using (var reader = cmd.ExecuteReader())
 
+                            //string[] JobDetails = new string[4];
 
-
-                            while (reader.Read())
+                        while (reader.Read())
                             {
 
-                                if (i < 5)
-                                {
-                                    sw.WriteLine(reader.GetValue(i++));
-                                }
-                                else
-                                {
-                                    sw.WriteLine(reader.GetValue(5));
-                                }
-                            }
-                        
+                             
 
+                                JobDetails[i] = reader.GetValue(i++).ToString();
+
+                                if (reader.GetValue(5).ToString() != "")
+                                {
+                                    JobDetails[5] = reader.GetValue(5).ToString();
+                                }
+                               
+
+                            }
+                      
                     }
+
 
                     
                 }
