@@ -1,0 +1,18 @@
+﻿Card.Description = (string)JobDetails[3]; //*UPDATE TO CUSTOM FIELDS*//
+
+                 var l1 =  as new Label;
+
+               /var l1 = Card.Board.Labels.FirstOrDefault(l => l.Color == LabelColor.Blue);
+
+			   / var PD = JobDetails[5];
+                    // l1.Name = "PROOF DATE: " + JobDetails[5].ToString().Substring(0, 10);
+                }
+
+
+               // var l2 = Card.Board.Labels.FirstOrDefault(l => l.Color == LabelColor.Green);
+               // l2.Name = (String)JobDetails[3];
+
+
+
+                //await Card.Labels.Add(l1);
+                //await Card.Labels.Add(l2);
