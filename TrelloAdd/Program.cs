@@ -3,6 +3,7 @@ using Npgsql;
 using System;
 using System.Collections;
 using System.Collections.Generic;
+using System.Data.SqlClient;
 using System.IO;
 using System.Linq;
 
@@ -10,12 +11,12 @@ namespace TrelloAdd
 {
     class Program
     {
-
+      
         
         static async System.Threading.Tasks.Task Main(string[] args)
         {
 
-        
+            string SQLPRoofDate;
             ArrayList JobDetails = new ArrayList();
 
 
@@ -31,10 +32,10 @@ namespace TrelloAdd
 
                 var connString = "Host=6.1.1.13;Username=epace_read;Password=epace;Database=epace"; // ** Connection Details ** // 
 
-                using
+                var conn1 = @"Data Source=(localdb)\MSSQLLocalDB;Initial Catalog=C:\USERS\SUMPTONS\SOURCE\REPOS\TRELLOADD\TRELLOADD\TRELLOJOBS.MDF;Integrated Security=True;Connect Timeout=30;Encrypt=False;TrustServerCertificate=False;ApplicationIntent=ReadWrite;MultiSubnetFailover=False";
+                
 
-
-        (var conn = new NpgsqlConnection(connString))
+                using(var conn = new NpgsqlConnection(connString))
                 {
                     conn.Open();
 
@@ -66,11 +67,11 @@ namespace TrelloAdd
 
                                     case 5:
                                         JobDetails.Clear();
-                                        JobDetails.Add(reader[0]);
-                                        JobDetails.Add(reader[1]);
-                                        JobDetails.Add(reader[2]);
-                                        JobDetails.Add(reader[3]);
-                                        JobDetails.Add(reader[4]);
+                                        JobDetails.Insert(0,reader[0]);
+                                        JobDetails.Insert(1,reader[1]);
+                                        JobDetails.Insert(2,reader[2]);
+                                        JobDetails.Insert(3,reader[3]);
+                                        JobDetails.Insert(4,reader[4]);
 
                                         break;
 
@@ -85,6 +86,33 @@ namespace TrelloAdd
                             }
 
                         }
+                }
+
+                using (var conn2 = new SqlConnection(conn1))
+                {
+                    conn2.Open();
+
+                    //var sqlFormattedDateDue = JobDetails[4].DateTime.ToString("yyyy-MM-dd HH:mm:ss");
+                    //String SQLDDT = JobDetails[4];
+
+                    //DateTime SQLDueDate;
+                    //DateTime.TryParse(JobDetails[4].ToString(), out SQLDueDate);
+
+                    
+                        if (JobDetails.Count == 5)
+                    {
+                        SQLPRoofDate = "N/A";
+                        
+                    }                    
+                    else
+                    {
+                        SQLPRoofDate = JobDetails[5].ToString();
+                        //DateTime.TryParse(JobDetails[5].ToString(), out SQLPRoofDate)
+                    }
+
+                    using (var cmdd = new SqlCommand("INSERT INTO Jobs VALUES ('" + JobDetails[0] + "','" + JobDetails[2] + "','" + JobDetails[3] + "','" + SQLPRoofDate + "','To Start','" + JobDetails[4] + "')", conn2))
+                    using (SqlDataReader r1 = cmdd.ExecuteReader()) ;
+
                 }
 
 
