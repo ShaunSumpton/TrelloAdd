@@ -16,3 +16,10 @@
 
                 //await Card.Labels.Add(l1);
                 //await Card.Labels.Add(l2);
+
+				 //var sqlFormattedDateDue = JobDetails[4].DateTime.ToString("yyyy-MM-dd HH:mm:ss");
+                    //String SQLDDT = JobDetails[4];
+
+                    //DateTime SQLDueDate;
+                    //DateTime.TryParse(JobDetails[4].ToString(), out SQLDueDate);
+//DateTime.TryParse(JobDetails[5].ToString(), out SQLPRoofDate)
